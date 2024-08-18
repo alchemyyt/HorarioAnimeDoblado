@@ -2,7 +2,7 @@ import connect from "@/lib/db";
 import User from "@/lib/modals/user";
 import { NextResponse } from "next/server";
 import { Types } from "mongoose";
-const ObjectId = require("mongoose").Types.ObjectId;//esto revisa si el objeto es valido
+const ObjectId = require("mongoose").Types.ObjectId; //esto revisa si el objeto es valido
 export const GET = async () => {
   try {
     await connect();
