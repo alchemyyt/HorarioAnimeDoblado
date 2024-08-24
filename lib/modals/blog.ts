@@ -4,7 +4,7 @@ const BlogSchema = new Schema(
     title: { type: "string", required: true },
     description: { type: "string" },
     user: { type: Schema.Types.ObjectId, ref: "User" },
-    categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
+    category: { type: Schema.Types.ObjectId, ref: "Category" },
   },
   {
     timestamps: true,
