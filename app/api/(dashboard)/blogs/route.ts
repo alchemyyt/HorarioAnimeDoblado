@@ -12,6 +12,8 @@ export const GET = async (request: Request) => {
     const searchKeywords = searchParams.get("keywords") as string;
     const startDate = searchParams.get("startDate");
     const endDate = searchParams.get("endDate");
+    const page: any = parseInt(searchParams.get("page") || "1");
+    const limit: any = parseInt(searchParams.get("limit") || "10");
     if (!userId || !Types.ObjectId.isValid(userId)) {
       return new NextResponse(
         JSON.stringify({ message: "Invalid or missig user id" }),
@@ -67,7 +69,11 @@ export const GET = async (request: Request) => {
         $lte: new Date(endDate),
       };
     }
-    const blogs = await Blog.find(filter);
+    const skip = (page - 1) * limit; //skip es una funcion de mongoose que te se skipea los objetos del parametro
+    const blogs = await Blog.find(filter)
+      .sort({ createdAt: "asc" })
+      .skip(skip)
+      .limit(limit);
     return new NextResponse(JSON.stringify({ blogs }), { status: 200 });
   } catch (error: any) {
     return new NextResponse("Error in fetching user data" + error.message, {
